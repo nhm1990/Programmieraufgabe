@@ -8,12 +8,22 @@ import { ServerService } from './server.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'programmieraufgabe-client';
 
-  constructor() { }
+  constructor(private server: ServerService) { }
   
+  resultArr = [];
+
   ngOnInit() {
 
+  }
+
+  executeMain(){
+    this.server.executeMain().then((response: any) => {
+      console.log('Response', response);
+      this.resultArr = response.map((arr: any) => {
+        return arr;
+      });
+    });
   }
 }
 

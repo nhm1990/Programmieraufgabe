@@ -15,8 +15,12 @@ export class ShowComponent implements OnInit {
   event:any;
   events: any[] = [];
 
+  customer:any;
+  customers: any[] = [];
+
   ngOnInit(): void {
     this.getEvents();
+    this.getCustomers();
   }
 
   private getEvents() {
@@ -28,30 +32,40 @@ export class ShowComponent implements OnInit {
     });
   }
 
+  private getCustomers() {
+    this.server.getCustomers().then((response: any) => {
+      console.log('Response', response);
+      this.customers = response.map((ev: any) => {
+        return ev;
+      });
+    });
+  }
+
   addClick(){
-    this.event = {
+    this.customer = {
       id: 0,
       name: ""
     }
-    this.ModalTitle = "Add Event";
+    this.ModalTitle = "Add Customer";
     this.ActivateAddEditDepComp = true;
   }
 
   editClick(item: any){
-    this.event = item;
-    this.ModalTitle = "Edit Event";
+    this.customer = item;
+    this.ModalTitle = "Edit Customer";
     this.ActivateAddEditDepComp = true;
   }
 
   closeClick(){
     this.ActivateAddEditDepComp = false;
     this.getEvents();
+    this.getCustomers();
   }
 
   deleteClick(item: any){
     if(confirm('Are you sure?')){
-      this.server.deleteEvent(item).then(() => {
-        this.getEvents();
+      this.server.deleteCustomer(item).then(() => {
+        this.getCustomers();
       });
     }
   }

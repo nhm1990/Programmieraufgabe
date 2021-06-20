@@ -1,6 +1,13 @@
 <h1>Meine Programmieraufgabe!</h1>
 <app-show></app-show>
 
+<button type="button" class="btn btn-primary" (click)="executeMain()">Run Main</button>
+<div>
+    <ul *ngFor="let result of resultArr">
+        <li>{{ result }}</li>
+    </ul>
+</div>
+
 <router-outlet></router-outlet>
 
 

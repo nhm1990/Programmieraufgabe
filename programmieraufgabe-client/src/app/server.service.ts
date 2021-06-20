@@ -36,4 +36,27 @@ export class ServerService {
   deleteEvent(event: any) {
     return this.request('DELETE', `${environment.serverUrl}/event/${event.id}`);
   }
+
+  //Customers
+  getCustomers() {
+    return this.request('GET', `${environment.serverUrl}/customer`);
+  }
+
+  createCustomer(customer: any) {
+    return this.request('POST', `${environment.serverUrl}/customer`, customer);
+  }
+
+  updateCustomer(customer: any) {
+    return this.request('PUT', `${environment.serverUrl}/customer/${customer.id}`, customer);
+  }
+
+  deleteCustomer(customer: any) {
+    return this.request('DELETE', `${environment.serverUrl}/customer/${customer.id}`);
+  }
+
+
+  //Main
+  executeMain(){
+    return this.request('GET', `${environment.serverUrl}/main`);
+  }
 }

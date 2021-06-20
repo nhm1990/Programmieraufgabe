@@ -1,4 +1,5 @@
 const express = require('express');
+const { main } = require('./main');
 
 function createRouter(db) {
   const router = express.Router();
@@ -64,6 +65,84 @@ function createRouter(db) {
       }
     );
   });
+
+  //Customers
+  router.post('/customer', (req, res, next) => {
+    const owner = "nhormesch";
+    db.query(
+      'INSERT INTO customers (owner, name, address, creationDate) VALUES (?,?,?,?)',
+      [owner, req.body.name, req.body.description, new Date(req.body.date)],
+      (error) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({status: 'error'});
+        } else {
+          res.status(200).json({status: 'ok'});
+        }
+      }
+    );
+  });
+
+  router.get('/customer', function (req, res, next) {
+    const owner = "nhormesch";
+    db.query(
+      'SELECT id, name, address, creationDate FROM customers WHERE owner=? ORDER BY creationDate LIMIT 10 OFFSET ?',
+      [owner, 10*(req.params.page || 0)],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({status: 'error'});
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
+
+  router.put('/customer/:id', function (req, res, next) {
+    const owner = "nhormesch";
+    db.query(
+      'UPDATE customers SET name=?, address=?, creationDate=? WHERE id=? AND owner=?',
+      [req.body.name, req.body.address, new Date(req.body.date), req.params.id, owner],
+      (error) => {
+        if (error) {
+          res.status(500).json({status: 'error'});
+        } else {
+          res.status(200).json({status: 'ok'});
+        }
+      }
+    );
+  });
+
+  router.delete('/customer/:id', function (req, res, next) {
+    const owner = "nhormesch";
+    db.query(
+      'DELETE FROM customers WHERE id=? AND owner=?',
+      [req.params.id, owner],
+      (error) => {
+        if (error) {
+          res.status(500).json({status: 'error'});
+        } else {
+          res.status(200).json({status: 'ok'});
+        }
+      }
+    );
+  });
+
+
+  //Main
+  router.get('/main', function (req, res, next) {
+    try{
+      const main = require('./main.js');
+      var resultArr = main.executeMain();
+      console.log("TEMPTESTNH34734634 get /main/ resultArr: " + resultArr);
+      res.status(200).json(resultArr);
+    }
+    catch(e){
+      res.status(500).json({status: 'error'}); 
+    }
+  });
+
 
   return router;
 }
