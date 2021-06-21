@@ -3,7 +3,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const events = require('./events.js');
-const main = require('./main.js');
 
 const connection = mysql.createConnection({
   host     : 'localhost',

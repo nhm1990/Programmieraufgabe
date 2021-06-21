@@ -2,6 +2,7 @@
 
 async function executeMain(){
     var customer = getCustomer(5, "DB", "Musterstraße 19, 67057 Ludwigshafen", new Date());
+    const car1 = new Car('Eagle', 'Talon TSi', 1993);
     console.log("TEMPTESTNH36434 person: " + customer.name);
     var db = getDatabaseConnection();
     /*try {
@@ -27,6 +28,12 @@ function getCustomer(id, name, address, creationDate){
 
     return customer;
 }
+
+function Car(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+  }
 
 
 function getDatabaseConnection(){
