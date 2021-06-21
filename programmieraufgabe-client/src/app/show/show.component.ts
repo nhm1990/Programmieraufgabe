@@ -19,17 +19,7 @@ export class ShowComponent implements OnInit {
   customers: any[] = [];
 
   ngOnInit(): void {
-    this.getEvents();
     this.getCustomers();
-  }
-
-  private getEvents() {
-    this.server.getEvents().then((response: any) => {
-      console.log('Response', response);
-      this.events = response.map((ev: any) => {
-        return ev;
-      });
-    });
   }
 
   private getCustomers() {
@@ -58,7 +48,6 @@ export class ShowComponent implements OnInit {
 
   closeClick(){
     this.ActivateAddEditDepComp = false;
-    this.getEvents();
     this.getCustomers();
   }
 

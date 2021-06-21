@@ -9,19 +9,12 @@ import { ServerService } from '../server.service';
 export class AddEditComponent implements OnInit {
   id: number | undefined;
   name: string | undefined;
-  description: string | undefined;
-  date: Date | undefined;
-
   address: string | undefined;
   creationDate: Date | undefined;
 
   constructor(private server: ServerService) { }
 
-  events: any[] = [];
   customers: any[] = [];
-
-  @Input() 
-  event:any;
 
   @Input()
   customer:any;
@@ -29,33 +22,9 @@ export class AddEditComponent implements OnInit {
   ngOnInit(): void {
     console.log("TEMPTESTNH63463463 this.id: " + this.customer.id);
     console.log("TEMPTESTNH63463463 this.name: " + this.customer.name);
-    //this.id = this.event.id;
-    //this.name = this.event.name;
     this.id = this.customer.id;
     this.name = this.customer.name;
-  }
-
-  addEvent(){
-    const newEvent = {
-      name: this.name,
-      description: this.description,
-      date: this.date,
-    };
-    this.server.createEvent(newEvent).then(() => {
-      alert("OK");
-    });
-  }
-
-  updateEvent(){
-    const newEvent = {
-      id: this.id,
-      name: this.name,
-      description: this.description,
-      date: this.date,
-    };
-    this.server.updateEvent(newEvent).then(() => {
-        alert("OK");
-    });
+    this.address = this.customer.address;
   }
 
   addCustomer(){
@@ -77,7 +46,7 @@ export class AddEditComponent implements OnInit {
       creationDate: this.creationDate,
     };
     this.server.updateCustomer(newCustomer).then(() => {
-        alert("OK");
+      alert("OK");
     });
   }
 }

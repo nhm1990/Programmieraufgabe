@@ -5,8 +5,6 @@ const mysql = require('mysql');
 const events = require('./events.js');
 const main = require('./main.js');
 
-main.executeMain();
-
 const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'nhormesch',

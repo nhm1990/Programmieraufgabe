@@ -71,7 +71,7 @@ function createRouter(db) {
     const owner = "nhormesch";
     db.query(
       'INSERT INTO customers (owner, name, address, creationDate) VALUES (?,?,?,?)',
-      [owner, req.body.name, req.body.description, new Date(req.body.date)],
+      [owner, req.body.name, req.body.address, new Date(req.body.date)],
       (error) => {
         if (error) {
           console.error(error);
@@ -131,10 +131,14 @@ function createRouter(db) {
 
 
   //Main
-  router.get('/main', function (req, res, next) {
+  router.post('/main', async function (req, res, next) {
     try{
       const main = require('./main.js');
-      var resultArr = main.executeMain();
+      /*var name = req.body.name;
+      var address = req.body.address;
+      console.log("TEMPTESTNH7346346343 name: " + name);
+      console.log("TEMPTESTNH7346346343 address: " + address);*/
+      var resultArr = await main.executeMain();
       console.log("TEMPTESTNH34734634 get /main/ resultArr: " + resultArr);
       res.status(200).json(resultArr);
     }

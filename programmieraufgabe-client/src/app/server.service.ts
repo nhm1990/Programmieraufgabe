@@ -21,22 +21,6 @@ export class ServerService {
     });
   }
 
-  getEvents() {
-    return this.request('GET', `${environment.serverUrl}/event`);
-  }
-
-  createEvent(event: any) {
-    return this.request('POST', `${environment.serverUrl}/event`, event);
-  }
-
-  updateEvent(event: any) {
-    return this.request('PUT', `${environment.serverUrl}/event/${event.id}`, event);
-  }
-
-  deleteEvent(event: any) {
-    return this.request('DELETE', `${environment.serverUrl}/event/${event.id}`);
-  }
-
   //Customers
   getCustomers() {
     return this.request('GET', `${environment.serverUrl}/customer`);
@@ -56,7 +40,7 @@ export class ServerService {
 
 
   //Main
-  executeMain(){
-    return this.request('GET', `${environment.serverUrl}/main`);
+  executeMain(customer: any){
+    return this.request('POST', `${environment.serverUrl}/main`, customer);
   }
 }
