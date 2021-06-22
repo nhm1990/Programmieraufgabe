@@ -12,33 +12,40 @@ export class AppComponent {
   constructor(private server: ServerService) { }
   
   //resultArr = [];
-  resultArr: any[] = [];
-  name: string | undefined;
-  address: string | undefined;
+  //resultArr: any[] = [];
+  input: any | undefined;
+  result: any | undefined;
+  numberOfCylces: any | undefined;
+  isShown = false;
 
   ngOnInit() {
 
   }
 
   executeMain(){
-    var customer = this.createCustomerObject();
-    console.log("TEMPTESTNH63463463 customer.name: " + customer.name);
-    console.log("TEMPTESTNH63463463 customer.address: " + customer.address);
-    this.server.executeMain(customer).then((response: any) => {
+    var numberObj = {
+      input: this.input
+    };
+    console.log("TEMPTESTNH273273 this.input: " + this.input);
+    this.server.executeMain(numberObj).then((response: any) => {
       console.log('Response', response);
-      this.resultArr = response.map((arr: any) => {
-        return arr;
-      });
+        this.result = response;
     });
   }
 
-  createCustomerObject(){
-    var customer = {
-      name: this.name,
-      address: this.address
+  savePalindromeToDb(){
+    var palindromeObj = {
+      input: this.input,
+      result: this.result,
+      numberOfCycles: this.numberOfCylces
     }
+    this.server.savePalindromeToDb(palindromeObj).then(() => {
+      alert("OK");
+    });
+  }
 
-    return customer;
+  showPalindromes(){
+    this.isShown = true;
   }
 }
 

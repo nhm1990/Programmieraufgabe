@@ -1,25 +1,25 @@
 <h1>Meine Programmieraufgabe!</h1>
-<app-show></app-show>
-
-<!--<button type="button" class="btn btn-primary" (click)="executeMain()">Run Main</button>
-<div>
-    <ul *ngFor="let result of resultArr">
-        <li>{{ result.name }}</li>
-    </ul>
-</div> -->
-
-<h2>Teil 2</h2>
 
 <div class="form-group now">
-    <label class="col-sm-2 col-form-label">Customer Name</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" [(ngModel)]="name" placeholder="Enter Customer Name">
+    <label class="col-sm-2 col-form-label">Input number</label>
+    <div class="col-sm-5">
+        <input type="string" class="form-control" [(ngModel)]="input" placeholder="Enter Palindome number">
     </div>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" [(ngModel)]="address" placeholder="Enter Customer Address">
+    <div class="col-sm-5">
+        {{ result }}
     </div>
 </div>
-<button type="button" class="btn btn-primary" (click)="executeMain()">Run Main</button>
+<button type="button" class="btn btn-primary" (click)="executeMain()">Calculate Palindrome</button>
+<br><br>
+
+<button type="button" class="btn btn-primary" (click)="savePalindromeToDb()">Save palindrome value to database</button>
+<br><br>
+
+<button type="button" class="btn btn-primary" (click)="showPalindromes()">Show palindromes</button>
+<br><br>
+<div *ngIf="isShown()">
+    <app-show></app-show>
+</div>
 
 
 <router-outlet></router-outlet>

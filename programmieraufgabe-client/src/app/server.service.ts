@@ -21,26 +21,16 @@ export class ServerService {
     });
   }
 
-  //Customers
-  getCustomers() {
-    return this.request('GET', `${environment.serverUrl}/customer`);
-  }
-
-  createCustomer(customer: any) {
-    return this.request('POST', `${environment.serverUrl}/customer`, customer);
-  }
-
-  updateCustomer(customer: any) {
-    return this.request('PUT', `${environment.serverUrl}/customer/${customer.id}`, customer);
-  }
-
-  deleteCustomer(customer: any) {
-    return this.request('DELETE', `${environment.serverUrl}/customer/${customer.id}`);
-  }
-
-
   //Main
-  executeMain(customer: any){
-    return this.request('POST', `${environment.serverUrl}/main`, customer);
+  executeMain(number: any){
+    return this.request('POST', `${environment.serverUrl}/main`, number);
+  }
+
+  savePalindromeToDb(palindrome: any){
+    return this.request('POST', `${environment.serverUrl}/mainSave`, palindrome);
+  }
+
+  getPalindromes() {
+    return this.request('GET', `${environment.serverUrl}/main`);
   }
 }

@@ -1,120 +1,79 @@
-//executeMain();
+//var n = 51;
+//executeMain(n);
 
-async function executeMain(){
-    var customer = getCustomer(5, "DB", "Musterstraße 19, 67057 Ludwigshafen", new Date());
-    const car1 = new Car('Eagle', 'Talon TSi', 1993);
-    console.log("TEMPTESTNH36434 person: " + customer.name);
-    var db = getDatabaseConnection();
-    /*try {
-        const results = await getValuesFromDb(db);
-        console.log("TEMPTESTNH7634636434 results: " + results[0].name);
-        console.log("TEMPTESTNH7634636434 typeof(results): " + typeof(results));
-        return results;
+async function executeMain(n){
+    const transform = new Transform(n);
+    palindromeNumber = palindrome(transform.number);
+    console.log("TEMPTESTNH2732634 palindromeNumber: " + palindromeNumber);
+    return palindromeNumber;
+}
+
+function Transform(number) {
+    this.number = number
+}
+
+function palindrome(number){
+    var reversedNumber = 0;
+    var isPalindom = false;
+    do{
+        isPalindom = checkIsPalindrom(number);
+        if(isPalindom == true){
+            return number;
+        }
+        reversedNumber = reverseNumber(number);
+        number = sumNumber(number, reversedNumber);
+        isPalindom = checkIsPalindrom(number);
+        if(numberHasMaxLength(number) == true){
+            return -1;
+        }
     }
-    catch(err) {
-        console.error("TEMPTESTNH7634636434 ERROR!! " + err);
+    while (isPalindom == false);
+
+    return number;
+}
+
+function reverseNumber(number){
+    if(number){
+        number = ""+number;
+        return number.split("").reverse().join("")*1;
     }
-    */
-
-    return null;
 }
 
-function getCustomer(id, name, address, creationDate){
-    var customer = new Object();
-    customer.id = id;
-    customer.name = name;
-    customer.address = address;
-    customer.creationDate = creationDate;
-
-    return customer;
+function sumNumber(numberA, numberB){
+    if(numberA && numberB){
+        return numberA*1 + numberB*1;
+    }
 }
 
-function Car(make, model, year) {
-    this.make = make;
-    this.model = model;
-    this.year = year;
-  }
-
-
-function getDatabaseConnection(){
-    const mysql = require('mysql');
-    const connection = mysql.createConnection({
-        host     : 'localhost',
-        user     : 'nhormesch',
-        password : 'start123',
-        database : 'programmieraufgabe'
-    });
-
-    connection.connect();
-
-    return connection;
+function numberHasMaxLength(number){
+    if(number*1 > 1000000000){
+        return true;
+    }
+    return false;
 }
 
-function insertValueToDb(db, valueObj){
-    const owner = "nhormesch";
-    db.query(
-        'INSERT INTO customers (owner, name, address, creationDate) VALUES (?,?,?,?)',
-        [owner, valueObj.name, valueObj.address, valueObj.creationDate],
-        (error) => {
-        if (error) {
-            console.error("insertValueToDb - ERROR!!! : " + error);
-        } else {
-            console.error("insertValueToDb - OK!!!");
-        }
-        }
-    );
-}
+function checkIsPalindrom(number){
+    var rem = 0;
+    var temp = 0;
+    var final = 0;
+    temp = number;
+    while(number > 0){
+        rem = number%10;
+        number = parseInt(number/10);
+        final = final*10+rem;
+    }
 
-function getValuesFromDb(db){
-    const owner = "nhormesch";
-    return new Promise(function(resolve, reject) {
-        db.query(
-            'SELECT id, name, address, creationDate FROM customers WHERE owner=? ORDER BY creationDate',
-            [owner],
-            (error, results) => {
-                if (error) {
-                    console.error("getValuesFromDb - ERROR!!! " + error);
-                    return null;
-                } else {
-                    console.error("getValuesFromDb - results: " + results);
-                    resolve(results);
-                }
-            }
-        )
-    });
-}
-
-function updateValuesToDb(db, valueObj){ 
-    const owner = "nhormesch";
-    db.query(
-        'UPDATE customers SET name=?, address=?, creationDate=? WHERE id=? AND owner=?',
-        [valueObj.name, valueObj.address, valueObj.date, valueObj.id, owner],
-        (error) => {
-            if (error) {
-            console.error("updateValuesToDb - ERROR!!! : " + error);
-            } else {
-                console.error("updateValuesToDb - OK!!!");
-            }
-        }
-    );
-}
-
-function deleteValueFromDb(db, id){
-    const owner = "nhormesch";
-    db.query(
-        'DELETE FROM customers WHERE id=? AND owner=?',
-        [id, owner],
-        (error) => {
-            if (error) {
-            console.error("deleteValueFromDb - ERROR!!! : " + error);
-            } else {
-                console.error("deleteValueFromDb - OK!!!");
-            }
-        }
-    );
+    if(final==temp){
+        return true;
+    }
+    return false;
 }
 
 module.exports = {
     executeMain,
-    getCustomer
+    sumNumber,
+    numberHasMaxLength,
+    checkIsPalindrom,
+    reverseNumber,
+    palindrome
 };
